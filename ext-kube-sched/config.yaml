@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: scheduler-config # Has to be scheduler-config
+  namespace: default # Has to be default
+data:
+  schedulerName: "ext-kube"
+  schedulerNamespace: "default"
+  customMetrics: []
+  parameters: {}
