@@ -1,0 +1,42 @@
+# scheduler-deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: static-scheduler
+  namespace: default
+  labels:
+    app: static-scheduler
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: static-scheduler
+  template:
+    metadata:
+      labels:
+        app: static-scheduler
+    spec:
+      nodeSelector:
+        node-role.kubernetes.io/control-plane: ""
+      tolerations:
+      - key: "node-role.kubernetes.io/control-plane"
+        operator: "Exists"
+        effect: "NoSchedule"
+      containers:
+      - name: static-scheduler
+        image: tarikkada/static-scheduler:latest
+        ports:
+        - containerPort: 5000
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: static-scheduler
+spec:
+  selector:
+    app: static-scheduler
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 5000
