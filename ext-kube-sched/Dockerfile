@@ -16,8 +16,11 @@ COPY . .
 # Build the Go application
 RUN go build -o scheduler .
 
-# Use a minimal base image to run the application
-FROM gcr.io/distroless/base-debian10
+# Use an Alpine base image with glibc
+FROM alpine:latest
+
+# Install glibc
+RUN apk add --no-cache libc6-compat
 
 # Copy the built application from the builder
 COPY --from=builder /app/scheduler /scheduler

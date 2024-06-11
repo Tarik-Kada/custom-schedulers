@@ -1,6 +1,6 @@
-docker build -t tarikkada/scheduler-simple-flask:latest .
+docker build -t tarikkada/rr-scheduler:latest .
 
-docker push tarikkada/scheduler-simple-flask:latest
+docker push tarikkada/rr-scheduler:latest
 
 kubectl apply -f ./deployment.yaml
 

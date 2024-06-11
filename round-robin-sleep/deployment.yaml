@@ -2,19 +2,19 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: rr-scheduler
+  name: rr-sleep-scheduler
   namespace: default
   labels:
-    app: rr-scheduler
+    app: rr-sleep-scheduler
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: rr-scheduler
+      app: rr-sleep-scheduler
   template:
     metadata:
       labels:
-        app: rr-scheduler
+        app: rr-sleep-scheduler
     spec:
       nodeSelector:
         node-role.kubernetes.io/control-plane: ""
@@ -23,8 +23,8 @@ spec:
         operator: "Exists"
         effect: "NoSchedule"
       containers:
-      - name: rr-scheduler
-        image: tarikkada/rr-scheduler:latest
+      - name: rr-sleep-scheduler
+        image: tarikkada/rr-sleep-scheduler:latest
         ports:
         - containerPort: 5000
 
@@ -32,10 +32,10 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: rr-scheduler
+  name: rr-sleep-scheduler
 spec:
   selector:
-    app: rr-scheduler
+    app: rr-sleep-scheduler
   ports:
   - protocol: TCP
     port: 80

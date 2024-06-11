@@ -24,6 +24,12 @@ def podScheduler():
     # Increment the worker number by 1
     worker = (worker + 1) % len(nodes)
 
+    param = request_data['parameters']
+    if 'sleepTime' in param:
+        sleepTime = int(param['sleepTime'])
+        print(f"Sleeping for {sleepTime} seconds...", file=sys.stdout)
+        time.sleep(sleepTime)
+
     # Print the total time to get to scheduling decision
     print(f"Time to get to scheduling decision: {time.time() - start}", file=sys.stdout)
     sys.stdout.flush()

@@ -2,19 +2,19 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: ext-kube
+  name: ext-kube-sched
   namespace: default
   labels:
-    app: ext-kube
+    app: ext-kube-sched
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: ext-kube
+      app: ext-kube-sched
   template:
     metadata:
       labels:
-        app: ext-kube
+        app: ext-kube-sched
     spec:
       nodeSelector:
         node-role.kubernetes.io/control-plane: ""
@@ -23,7 +23,7 @@ spec:
         operator: "Exists"
         effect: "NoSchedule"
       containers:
-      - name: ext-kube
+      - name: ext-kube-scheduler
         image: tarikkada/ext-kube-sched:latest
         ports:
         - containerPort: 8080
@@ -32,11 +32,11 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: ext-kube
+  name: ext-kube-sched
 spec:
   selector:
-    app: ext-kube
+    app: ext-kube-sched
   ports:
   - protocol: TCP
-    port: 8080
+    port: 80
     targetPort: 8080
