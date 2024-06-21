@@ -7,9 +7,6 @@ data:
   schedulerName: "ext-kube-sched"
   schedulerNamespace: "default"
   customMetrics: |
-    [
-      {"metricName": "cpuUsage", "query": "sum(rate(container_cpu_usage_seconds_total{image!=\"\"}[5m])) by (node)"},
-      {"metricName": "memoryUsage", "query": "sum(container_memory_usage_bytes) by (node)"}
-    ]
+    []
   parameters: |
-    {"worker": 3, "timeout": 30, "maxRetries": 20}
+    {}
